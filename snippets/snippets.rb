@@ -4,9 +4,10 @@ snippet 'File Head' do |snip|
 	snip.trigger = 'nvhead'
 	snip.expansion = '
 /**
- * @Project NUKEVIET 3.x
+ * @Project NUKEVIET 4.x
  * @Author ${1:VINADES.,JSC} (${2:contact@vinades.vn})
  * @Copyright (C) '+Time.now.gmtime.strftime('%Y')+' ${3:VINADES.,JSC}. All rights reserved
+ * @License GNU/GPL version 2 or any later version
  * @Createdate '+Time.now.gmtime.strftime('%a, %d %b %Y %I:%M:%S')+' GMT
  */
 '
@@ -19,9 +20,10 @@ snippet 'PHP Module Admin' do |snip|
 	snip.expansion = '<?php
 
 /**
- * @Project NUKEVIET 3.x
+ * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
  * @Copyright (C) '+Time.now.gmtime.strftime('%Y')+' VINADES.,JSC. All rights reserved
+ * @License GNU/GPL version 2 or any later version
  * @Createdate '+Time.now.gmtime.strftime('%a, %d %b %Y %I:%M:%S')+' GMT
  */
 
@@ -29,7 +31,7 @@ if( ! defined( \'NV_IS_FILE_ADMIN\' ) ) die( \'Stop!!!\' );
 
 ${2:\/\/ Code}
 
-\$xtpl = new XTemplate( \$op . ".tpl", NV_ROOTDIR . "/themes/" . \$global_config[\'module_theme\'] . "/modules/" . \$module_file );
+\$xtpl = new XTemplate( \$op . \'.tpl\', NV_ROOTDIR . \'/themes/\' . \$global_config[\'module_theme\'] . \'/modules/\' . \$module_file );
 \$xtpl->assign( \'LANG\', \$lang_module );
 \$xtpl->assign( \'NV_BASE_ADMINURL\', NV_BASE_ADMINURL );
 \$xtpl->assign( \'NV_NAME_VARIABLE\', NV_NAME_VARIABLE );
@@ -42,9 +44,9 @@ ${2:\/\/ Code}
 
 \$page_title = \$lang_module[\'${1:page_title}\'];
 
-include (NV_ROOTDIR . "/includes/header.php");
+include NV_ROOTDIR . \'/includes/header.php\';
 echo nv_admin_theme( \$contents );
-include (NV_ROOTDIR . "/includes/footer.php");
+include NV_ROOTDIR . \'/includes/footer.php\';
 
 ?>'
 end
@@ -56,9 +58,10 @@ snippet 'PHP Module' do |snip|
 	snip.expansion = '<?php
 
 /**
- * @Project NUKEVIET 3.x
+ * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
  * @Copyright (C) '+Time.now.gmtime.strftime('%Y')+' VINADES.,JSC. All rights reserved
+ * @License GNU/GPL version 2 or any later version
  * @Createdate '+Time.now.gmtime.strftime('%a, %d %b %Y %I:%M:%S')+' GMT
  */
 
@@ -73,9 +76,9 @@ ${3:\/\/ Code}
 
 \$contents = nv_theme_${2:module_name_op}( \$array_data );
 
-include (NV_ROOTDIR . "/includes/header.php");
+include NV_ROOTDIR . \'/includes/header.php\';
 echo nv_site_theme( \$contents );
-include (NV_ROOTDIR . "/includes/footer.php");
+include NV_ROOTDIR . \'/includes/footer.php\';
 
 ?>'
 end
@@ -87,9 +90,10 @@ snippet 'PHP Language' do |snip|
 	snip.expansion = '<?php
 
 /**
- * @Project NUKEVIET 3.x
+ * @Project NUKEVIET 4.x
  * @Author ${1:VINADES.,JSC} (${2:contact@vinades.vn})
  * @Copyright (C) '+Time.now.gmtime.strftime('%Y')+' ${3:VINADES.,JSC}. All rights reserved
+ * @License CC BY-SA (http://creativecommons.org/licenses/by-sa/4.0/)
  * @Createdate '+Time.now.gmtime.strftime('%a, %d %b %Y %I:%M:%S')+' GMT
  */
 
@@ -107,46 +111,77 @@ if( ! defined( \'NV_MAINFILE\' ) ) die( \'Stop!!!\' );
 ?>'
 end
 
-#---------------------------------------- Query Fetch Assoc ------------------------------------------------
+#---------------------------------------- Query Prepare ------------------------------------------------
 
-snippet 'Query Fetch Assoc' do |snip|
-	snip.trigger = 'nvsqlfetchassoc'
-	snip.expansion = '\$sql = "SELECT SQL_CALC_FOUND_ROWS * FROM \`" . NV_PREFIXLANG . "_" . \$module_data . "\` WHERE \`status\`=1 ORDER BY `id` DESC LIMIT 0, " . \$per_page;
-\$_query = \$db->sql_query( \$sql );
+snippet 'db->prepare' do |snip|
+  snip.trigger = 'dbprepare'
+  snip.expansion = '\/\/ Query Prepare
+\$sth = \$db->prepare( \'SELECT id, title FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE title=:title\' );
+\$sth->bindParam( \':title\', \$title, PDO::PARAM_STR, strlen( \$title ) );
+\$sth->execute();
+'
+end
 
-\$result_all = \$db->sql_query( "SELECT FOUND_ROWS()" );
-list( \$all_page ) =\$db->sql_fetchrow( \$result_all );
+#---------------------------------------- Fetch Limit ------------------------------------------------
 
-while( \$row = \$db->sql_fetch_assoc( \$_query ) )
+snippet 'Fetch Limit' do |snip|
+	snip.trigger = 'dbfetchlimit'
+	snip.expansion = '\/\/ Fetch Limit
+\$db->sqlreset()
+  ->select( \'COUNT(*)\' )
+  ->from( NV_PREFIXLANG . \'_\' . \$module_data )
+  ->where( \'status=1\' );
+
+\$all_page = \$db->query( \$db->sql() )->fetchColumn();
+
+\$db->select( \'*\' )
+  ->order( \'id DESC\' )
+  ->limit( \$per_page )
+  ->offset( \$page );
+while( \$row = \$_query->fetch() )
 {
 	\/\/\$id = \$row[\'id\'];
 }
 '
 end
 
-#---------------------------------------- Query Fetch Num ------------------------------------------------
+#---------------------------------------- Fetch Assoc ------------------------------------------------
 
-snippet 'Query Fetch Num' do |snip|
-	snip.trigger = 'nvsqlfetchnum'
-	snip.expansion = '\$sql = "SELECT SQL_CALC_FOUND_ROWS \`id\`, \`title\` FROM \`" . NV_PREFIXLANG . "_" . \$module_data . "\` WHERE \`status\`=1 ORDER BY `id` DESC LIMIT 0, " . \$per_page;
-\$_query = \$db->sql_query( \$sql );
+snippet 'Fetch Assoc' do |snip|
+  snip.trigger = 'dbfetchassoc'
+  snip.expansion = '\/\/ Fetch Assoc
+\$_sql = \'SELECT * FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE status=1 ORDER BY id DESC\';
+\$_query = \$db->query( \$_sql );
 
-\$result_all = \$db->sql_query( "SELECT FOUND_ROWS()" );
-list( \$all_page ) =\$db->sql_fetchrow( \$result_all );
+while( \$row = \$_query->fetch() )
+{
+  \/\/\$id = \$row[\'id\'];
+}
+'
+end
 
-while( list(\$id, \$title) = \$db->sql_fetchrow( \$_query, 1 ) )
+#---------------------------------------- Fetch Num ------------------------------------------------
+
+snippet 'Fetch Num' do |snip|
+	snip.trigger = 'dbfetchnum'
+	snip.expansion = '\/\/ Fetch Num
+\$_sql = \'SELECT id, title FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE status=1 ORDER BY id DESC\';
+\$_query = \$db->query( \$_sql );
+
+while( list(\$id, \$title) = \$_query->fetch( 3 ) )
 {
 	${1:\/\/ Code}
 }
 '
 end
 
-#---------------------------------------- Query Max Weight ------------------------------------------------
+#---------------------------------------- Max Weight ------------------------------------------------
 
-snippet 'Query Max Weight' do |snip|
-	snip.trigger = 'nvsqlmaxweight'
-	snip.expansion = '\$_sql = "SELECT max(\`weight\`) FROM \`" . NV_PREFIXLANG . "_" . \$module_data . "\` WHERE \`catid\`= " . \$catid;
-list( \$weight ) = \$db->sql_fetchrow( \$db->sql_query( \$_sql ) );
+snippet 'Max Weight' do |snip|
+	snip.trigger = 'dbmaxweight'
+	snip.expansion = '\/\/ Max Weight
+\$_sql = \'SELECT max(weight) FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE catid=\' . \$catid;
+\$weight = \$db->query( \$_sql )->fetchColumn();
 \$weight = intval( \$weight ) + 1;
 '
 end
@@ -156,7 +191,7 @@ end
 snippet 'Upload File' do |snip|
 	snip.trigger = 'nvupfile'
 	snip.expansion = '\/\/ Upload File
-require_once ( NV_ROOTDIR . "/includes/class/upload.class.php" );
+require_once NV_ROOTDIR . \'/includes/class/upload.class.php\';
 \$_upload = new upload( \$allow_files_type, \$global_config[\'forbid_extensions\'], \$global_config[\'forbid_mimes\'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT );
 
 \$upload_info = \$_upload->save_file( \$_FILES[\'upload\'], NV_ROOTDIR . \'/\' . \$path, false );
@@ -176,7 +211,7 @@ end
 snippet 'Upload UrlFile' do |snip|
 	snip.trigger = 'nvupurl'
 	snip.expansion = '\/\/ Upload UrlFile
-require_once ( NV_ROOTDIR . "/includes/class/upload.class.php" );
+require_once NV_ROOTDIR . \'/includes/class/upload.class.php\';
 \$_upload = new upload( \$allow_files_type, \$global_config[\'forbid_extensions\'], \$global_config[\'forbid_mimes\'], NV_UPLOAD_MAX_FILESIZE, NV_MAX_WIDTH, NV_MAX_HEIGHT );
 
 \$urlfile = trim( \$nv_Request->get_string( \'fileurl\', \'post\' ) );
@@ -198,7 +233,7 @@ end
 snippet 'Download File' do |snip|
 	snip.trigger = 'nvdownfile'
 	snip.expansion = '\/\/ Download file
-require_once ( NV_ROOTDIR . "/includes/class/download.class.php" );
+require_once NV_ROOTDIR . \'/includes/class/download.class.php\';
 \$_download = new download( \$file_src, \$directory, \$file_basename, \$is_resume, \$max_speed );
 \$_download->download_file();
 exit();
@@ -210,7 +245,7 @@ end
 snippet 'Image Resize' do |snip|
 	snip.trigger = 'nvimgresize'
 	snip.expansion = '\/\/ Image Resize
-require_once ( NV_ROOTDIR . "/includes/class/image.class.php" );
+require_once NV_ROOTDIR . \'/includes/class/image.class.php\';
 \$_image = new image( \$pathimage, NV_MAX_WIDTH, NV_MAX_HEIGHT );
 \$_image->resizeXY( \$width, \$height );
 \$_image->save( NV_ROOTDIR . \'/\' . NV_TEMP_DIR, \$basename );
@@ -312,9 +347,10 @@ snippet 'Block Module.php' do |snip|
 	snip.expansion = snip.expansion = '<?php
 
 /**
- * @Project NUKEVIET 3.x
+ * @Project NUKEVIET 4.x
  * @Author VINADES.,JSC (contact@vinades.vn)
  * @Copyright (C) '+Time.now.gmtime.strftime('%Y')+' VINADES.,JSC. All rights reserved
+ * @License GNU/GPL version 2 or any later version
  * @Createdate '+Time.now.gmtime.strftime('%a, %d %b %Y %I:%M:%S')+' GMT
  */
 

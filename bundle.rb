@@ -4,7 +4,7 @@ bundle do |bundle|
   bundle.display_name = 'NukeViet'
   bundle.author = 'Vu Thao'
   bundle.copyright = <<END
-(c) Copyright 2013 VINADES.,JSC. Distributed under GNU license.
+(c) Copyright 2014 VINADES.,JSC. Distributed under GNU license.
 END
 
   bundle.description = <<END
@@ -17,9 +17,11 @@ END
   # to easily add new sections
   bundle.menu 'NukeViet' do |menu|
     menu.menu 'Db Query' do |sub_menu|
-        sub_menu.command 'Query Fetch Assoc'
-        sub_menu.command 'Query Fetch Num'
-        sub_menu.command 'Query Max Weight'
+        sub_menu.command 'db->prepare'
+        sub_menu.command 'Fetch Limit'
+        sub_menu.command 'Fetch Assoc'
+        sub_menu.command 'Fetch Num'
+        sub_menu.command 'Max Weight'
     end
     menu.menu 'Code PHP' do |sub_menu|
         sub_menu.command 'Upload File'
