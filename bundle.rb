@@ -25,6 +25,12 @@ END
         sub_menu.command 'Max Weight'
     end
     menu.menu 'Code PHP' do |sub_menu|
+        sub_menu.command 'Url NukeViet'
+        sub_menu.command 'Url NukeViet Ampersand'
+        sub_menu.command 'Url Admin NukeViet'
+        sub_menu.command 'Url Admin NukeViet Ampersand'
+        sub_menu.command 'Header Location SiteUrl'
+        sub_menu.command 'Header Location AdminUrl'
         sub_menu.command 'Upload File'
         sub_menu.command 'Upload UrlFile'
         sub_menu.command 'Download File'

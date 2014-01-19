@@ -16,6 +16,7 @@ end
 #-------------------------------------- PHP Module Admin ---------------------------------------------------
 
 snippet 'PHP Module Admin' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvphpadm'
 	snip.expansion = '<?php
 
@@ -54,6 +55,7 @@ end
 #---------------------------------------- PHP Module ------------------------------------------------
 
 snippet 'PHP Module' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvphpmod'
 	snip.expansion = '<?php
 
@@ -86,6 +88,7 @@ end
 #---------------------------------------- PHP Language ------------------------------------------------
 
 snippet 'PHP Language' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvlang'
 	snip.expansion = '<?php
 
@@ -114,6 +117,7 @@ end
 #---------------------------------------- Pdo trycatch ------------------------------------------------
 
 snippet 'Pdo trycatch' do |snip|
+  snip.scope = 'source.php'
   snip.trigger = 'trycatchPdo'
   snip.expansion = 'try
 {
@@ -128,6 +132,7 @@ end
 #---------------------------------------- Query Prepare ------------------------------------------------
 
 snippet 'db->prepare' do |snip|
+  snip.scope = 'source.php'
   snip.trigger = 'dbprepare'
   snip.expansion = '\/\/ Query Prepare
 \$sth = \$db->prepare( \'SELECT id, title FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE title=:title\' );
@@ -139,6 +144,7 @@ end
 #---------------------------------------- Fetch Limit ------------------------------------------------
 
 snippet 'Fetch Limit' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'dbfetchlimit'
 	snip.expansion = '\/\/ Fetch Limit
 \$db->sqlreset()
@@ -162,6 +168,7 @@ end
 #---------------------------------------- Fetch Assoc ------------------------------------------------
 
 snippet 'Fetch Assoc' do |snip|
+  snip.scope = 'source.php'
   snip.trigger = 'dbfetchassoc'
   snip.expansion = '\/\/ Fetch Assoc
 \$_sql = \'SELECT * FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE status=1 ORDER BY id DESC\';
@@ -177,6 +184,7 @@ end
 #---------------------------------------- Fetch Num ------------------------------------------------
 
 snippet 'Fetch Num' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'dbfetchnum'
 	snip.expansion = '\/\/ Fetch Num
 \$_sql = \'SELECT id, title FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE status=1 ORDER BY id DESC\';
@@ -192,6 +200,7 @@ end
 #---------------------------------------- Max Weight ------------------------------------------------
 
 snippet 'Max Weight' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'dbmaxweight'
 	snip.expansion = '\/\/ Max Weight
 \$_sql = \'SELECT max(weight) FROM \' . NV_PREFIXLANG . \'_\' . \$module_data . \' WHERE catid=\' . \$catid;
@@ -203,6 +212,7 @@ end
 #---------------------------------------- Upload File ------------------------------------------------
 
 snippet 'Upload File' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvupfile'
 	snip.expansion = '\/\/ Upload File
 require_once NV_ROOTDIR . \'/includes/class/upload.class.php\';
@@ -220,9 +230,60 @@ else
 '
 end
 
+#---------------------------------------- Url NukeViet ------------------------------------------------
+
+snippet 'Url NukeViet' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'urlsite'
+  snip.expansion = 'NV_BASE_SITEURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&\' . NV_OP_VARIABLE . \'=\' . \$op${1}'
+end
+
+#---------------------------------------- Url NukeViet Ampersand ------------------------------------------------
+
+snippet 'Url NukeViet Ampersand' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'urlsiteampersand'
+  snip.expansion = 'NV_BASE_SITEURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&amp;\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&amp;\' . NV_OP_VARIABLE . \'=\' . \$op${1}'
+end
+
+#---------------------------------------- Url Admin NukeViet ------------------------------------------------
+
+snippet 'Url Admin NukeViet' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'urladmin'
+  snip.expansion = 'NV_BASE_ADMINURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&\' . NV_OP_VARIABLE . \'=\' . \$op${1}'
+end
+
+#---------------------------------------- Url Admin NukeViet Ampersand ------------------------------------------------
+
+snippet 'Url Admin NukeViet Ampersand' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'urladminampersand'
+  snip.expansion = 'NV_BASE_ADMINURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&amp;\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&amp;\' . NV_OP_VARIABLE . \'=\' . \$op${1}'
+end
+
+#---------------------------------------- Header Location SiteUrl ------------------------------------------------
+
+snippet 'Header Location SiteUrl' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'headersiteurl'
+  snip.expansion = 'Header( \'Location: \' . NV_BASE_SITEURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&\' . NV_OP_VARIABLE . \'=\' . \$op${1} );
+die();'
+end
+
+#---------------------------------------- Header Location AdminUrl ------------------------------------------------
+
+snippet 'Header Location AdminUrl' do |snip|
+  snip.scope = 'source.php'
+  snip.trigger = 'headeradmurl'
+  snip.expansion = 'Header( \'Location: \' . NV_BASE_ADMINURL . \'index.php?\' . NV_LANG_VARIABLE . \'=\' . NV_LANG_DATA . \'&\' . NV_NAME_VARIABLE . \'=\' . \$module_name . \'&\' . NV_OP_VARIABLE . \'=\' . \$op${1} );
+die();'
+end
+
 #---------------------------------------- Upload UrlFile ------------------------------------------------
 
 snippet 'Upload UrlFile' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvupurl'
 	snip.expansion = '\/\/ Upload UrlFile
 require_once NV_ROOTDIR . \'/includes/class/upload.class.php\';
@@ -245,6 +306,7 @@ end
 #---------------------------------------- Download File ------------------------------------------------
 
 snippet 'Download File' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvdownfile'
 	snip.expansion = '\/\/ Download file
 require_once NV_ROOTDIR . \'/includes/class/download.class.php\';
@@ -257,6 +319,7 @@ end
 #---------------------------------------- Image Resize ------------------------------------------------
 
 snippet 'Image Resize' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'nvimgresize'
 	snip.expansion = '\/\/ Image Resize
 require_once NV_ROOTDIR . \'/includes/class/image.class.php\';
@@ -270,6 +333,7 @@ end
 #---------------------------------------- Xtpl Begin End ------------------------------------------------
 
 snippet 'Tpl Begin End' do |snip|
+  snip.scope = 'source.tpl'
 	snip.trigger = 'tplblock'
 	snip.expansion = '<!-- BEGIN: ${1:main} -->
 	${2}
@@ -279,8 +343,9 @@ end
 #---------------------------------------- Tpl Form Submit ------------------------------------------------
 
 snippet 'Tpl Form Submit' do |snip|
+  snip.scope = 'source.tpl'
 	snip.trigger = 'tplform'
-	snip.expansion = '<form action="{NV_BASE_ADMINURL}index.php?{NV_NAME_VARIABLE}={MODULE_NAME}&{NV_OP_VARIABLE}={OP}" method="post">
+	snip.expansion = '<form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<input type="hidden" name="save"  value="1" />
 	<input type="hidden" name="id" value="{DATA.id}" />
 	<table class="tab1">
@@ -308,6 +373,7 @@ end
 #---------------------------------------- Tpl Table ------------------------------------------------
 
 snippet 'Tpl Table' do |snip|
+  snip.scope = 'source.tpl'
 	snip.trigger = 'tpltable'
 	snip.expansion = '<table class="tab1">
 	<thead>
@@ -337,6 +403,7 @@ end
 #---------------------------------------- Block Module.ini ------------------------------------------------
 
 snippet 'Block Module.ini' do |snip|
+  snip.scope = 'source.ini'
 	snip.trigger = 'blockini'
 	snip.expansion = '<?xml version="1.0" encoding="utf-8"?>
 <block>
@@ -357,6 +424,7 @@ end
 #---------------------------------------- Block Module.php ------------------------------------------------
 
 snippet 'Block Module.php' do |snip|
+  snip.scope = 'source.php'
 	snip.trigger = 'blockphp'
 	snip.expansion = snip.expansion = '<?php
 
