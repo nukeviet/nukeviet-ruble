@@ -111,6 +111,20 @@ if( ! defined( \'NV_MAINFILE\' ) ) die( \'Stop!!!\' );
 ?>'
 end
 
+#---------------------------------------- Pdo trycatch ------------------------------------------------
+
+snippet 'Pdo trycatch' do |snip|
+  snip.trigger = 'trycatchPdo'
+  snip.expansion = 'try
+{
+  \$db->query( \'${1}\' );
+}
+catch( PDOException \$e )
+{
+  trigger_error( \$e->getMessage() );
+}'
+end
+
 #---------------------------------------- Query Prepare ------------------------------------------------
 
 snippet 'db->prepare' do |snip|

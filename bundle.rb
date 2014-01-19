@@ -17,6 +17,7 @@ END
   # to easily add new sections
   bundle.menu 'NukeViet' do |menu|
     menu.menu 'Db Query' do |sub_menu|
+        sub_menu.command 'Pdo trycatch'
         sub_menu.command 'db->prepare'
         sub_menu.command 'Fetch Limit'
         sub_menu.command 'Fetch Assoc'
