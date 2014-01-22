@@ -16,7 +16,6 @@ end
 #-------------------------------------- PHP Module Admin ---------------------------------------------------
 
 snippet 'PHP Module Admin' do |snip|
-  snip.scope = 'source.php'
 	snip.trigger = 'nvphpadm'
 	snip.expansion = '<?php
 
@@ -55,7 +54,6 @@ end
 #---------------------------------------- PHP Module ------------------------------------------------
 
 snippet 'PHP Module' do |snip|
-  snip.scope = 'source.php'
 	snip.trigger = 'nvphpmod'
 	snip.expansion = '<?php
 
@@ -88,7 +86,6 @@ end
 #---------------------------------------- PHP Language ------------------------------------------------
 
 snippet 'PHP Language' do |snip|
-  snip.scope = 'source.php'
 	snip.trigger = 'nvlang'
 	snip.expansion = '<?php
 
@@ -333,7 +330,6 @@ end
 #---------------------------------------- Xtpl Begin End ------------------------------------------------
 
 snippet 'Tpl Begin End' do |snip|
-  snip.scope = 'source.tpl'
 	snip.trigger = 'tplblock'
 	snip.expansion = '<!-- BEGIN: ${1:main} -->
 	${2}
@@ -343,7 +339,6 @@ end
 #---------------------------------------- Tpl Form Submit ------------------------------------------------
 
 snippet 'Tpl Form Submit' do |snip|
-  snip.scope = 'source.tpl'
 	snip.trigger = 'tplform'
 	snip.expansion = '<form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<input type="hidden" name="save"  value="1" />
@@ -373,7 +368,6 @@ end
 #---------------------------------------- Tpl Table ------------------------------------------------
 
 snippet 'Tpl Table' do |snip|
-  snip.scope = 'source.tpl'
 	snip.trigger = 'tpltable'
 	snip.expansion = '<table class="tab1">
 	<thead>
@@ -403,7 +397,6 @@ end
 #---------------------------------------- Block Module.ini ------------------------------------------------
 
 snippet 'Block Module.ini' do |snip|
-  snip.scope = 'source.ini'
 	snip.trigger = 'blockini'
 	snip.expansion = '<?xml version="1.0" encoding="utf-8"?>
 <block>
@@ -424,7 +417,6 @@ end
 #---------------------------------------- Block Module.php ------------------------------------------------
 
 snippet 'Block Module.php' do |snip|
-  snip.scope = 'source.php'
 	snip.trigger = 'blockphp'
 	snip.expansion = snip.expansion = '<?php
 
