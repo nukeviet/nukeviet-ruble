@@ -40,6 +40,7 @@ END
         sub_menu.command 'Tpl Begin End'
         sub_menu.command 'Tpl Form Submit'
         sub_menu.command 'Tpl Table'
+        sub_menu.command 'jquery datepicker'
     end
     menu.menu 'File Templates' do |sub_menu|
         sub_menu.command 'File Head'

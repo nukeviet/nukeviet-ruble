@@ -394,6 +394,36 @@ snippet 'Tpl Table' do |snip|
 </table>'
 end
 
+#---------------------------------------- jquery.ui.datepicker ------------------------------------------------
+
+snippet 'jquery datepicker' do |snip|
+  snip.trigger = 'datepicker'
+  snip.expansion = '<link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.core.css" rel="stylesheet" />
+<link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.theme.css" rel="stylesheet" />
+<link type="text/css" href="{NV_BASE_SITEURL}js/ui/jquery.ui.datepicker.css" rel="stylesheet" />
+
+<script type="text/javascript" src="{NV_BASE_SITEURL}js/ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}js/ui/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="{NV_BASE_SITEURL}js/language/jquery.ui.datepicker-{NV_LANG_INTERFACE}.js"></script>
+
+<input name="${1:exp_date}" id="#${1:exp_date}" value="{DATA.${1:exp_date}}" style="width: 90px;" maxlength="10" readonly="readonly" type="text" />
+
+<script type="text/javascript">
+\$(document).ready(function() {
+  \$("#${1:exp_date}").datepicker({
+      showOn : "both",
+      dateFormat : "dd/mm/yy",
+      changeMonth : true,
+      changeYear : true,
+      showOtherMonths : true,
+      buttonImage : nv_siteroot + "images/calendar.gif",
+      buttonImageOnly : true
+  });
+});
+</script>
+'
+end
+
 #---------------------------------------- Block Module.ini ------------------------------------------------
 
 snippet 'Block Module.ini' do |snip|
