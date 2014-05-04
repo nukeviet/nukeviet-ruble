@@ -155,6 +155,8 @@ snippet 'Fetch Limit' do |snip|
   ->order( \'id DESC\' )
   ->limit( \$per_page )
   ->offset( \$page );
+
+\$_query = \$db->query( \$db->sql() );
 while( \$row = \$_query->fetch() )
 {
 	\/\/\$id = \$row[\'id\'];
@@ -336,31 +338,59 @@ snippet 'Tpl Begin End' do |snip|
 <!-- END: ${1:main} -->'
 end
 
-#---------------------------------------- Tpl Form Submit ------------------------------------------------
+#---------------------------------------- Tpl Form Post ------------------------------------------------
 
-snippet 'Tpl Form Submit' do |snip|
-	snip.trigger = 'tplform'
+snippet 'Tpl Form Post' do |snip|
+	snip.trigger = 'tplformpost'
 	snip.expansion = '<form action="{NV_BASE_ADMINURL}index.php?{NV_LANG_VARIABLE}={NV_LANG_DATA}&amp;{NV_NAME_VARIABLE}={MODULE_NAME}&amp;{NV_OP_VARIABLE}={OP}" method="post">
 	<input type="hidden" name="save"  value="1" />
 	<input type="hidden" name="id" value="{DATA.id}" />
 	<table class="tab1">
-		<tbody>
-			<tr>
-				<td><strong>{LANG.title}</strong></td>
-				<td><input type="text" value="{DATA.title}" name="title" maxlength="255" /></td>
-			</tr>
-		</tbody>
-		<tbody class="second">
-			<tr>
-				<td><strong>{LANG.alias}</strong></td>
-				<td><input type="text" value="{DATA.alias}" name="alias" id="idalias" maxlength="255" /><img src="{NV_BASE_SITEURL}images/refresh.png" width="16" class="refresh" onclick="get_alias(\'{DATA.id}\');" alt="Get alias..." height="16" /></td>
-			</tr>
-		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="2" align="center"><input name="submit" type="submit" value="{LANG.save}" /></td>
 			</tr>
 		</tfoot>
+		<tbody>
+			<tr>
+				<td><strong>{LANG.title}</strong></td>
+				<td><input type="text" value="{DATA.title}" name="title" maxlength="255" /></td>
+			</tr>
+			<tr>
+				<td><strong>{LANG.alias}</strong></td>
+				<td><input type="text" value="{DATA.alias}" name="alias" id="idalias" maxlength="255" /><img src="{NV_BASE_SITEURL}images/refresh.png" width="16" class="refresh" onclick="get_alias(\'{DATA.id}\');" alt="Get alias..." height="16" /></td>
+			</tr>
+		</tbody>
+	</table>
+</form>'
+end
+
+#---------------------------------------- Tpl Form Get ------------------------------------------------
+
+snippet 'Tpl Form Get' do |snip|
+snip.trigger = 'tplformget'
+snip.expansion = '<form action="{NV_BASE_ADMINURL}index.php" method="get">
+	<input type="hidden" name="{NV_LANG_VARIABLE}"  value="{NV_LANG_DATA}" />
+	<input type="hidden" name="{NV_NAME_VARIABLE}"  value="{MODULE_NAME}" />
+	<input type="hidden" name="{NV_OP_VARIABLE}"  value="{OP}" />
+	<input type="hidden" name="save"  value="1" />
+	<input type="hidden" name="id" value="{DATA.id}" />
+	<table class="tab1">
+		<tfoot>
+			<tr>
+				<td colspan="2" align="center"><input name="submit" type="submit" value="{LANG.save}" /></td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td><strong>{LANG.title}</strong></td>
+				<td><input type="text" value="{DATA.title}" name="title" maxlength="255" /></td>
+			</tr>
+			<tr>
+				<td><strong>{LANG.alias}</strong></td>
+				<td><input type="text" value="{DATA.alias}" name="alias" id="idalias" maxlength="255" /><img src="{NV_BASE_SITEURL}images/refresh.png" width="16" class="refresh" onclick="get_alias(\'{DATA.id}\');" alt="Get alias..." height="16" /></td>
+			</tr>
+		</tbody>
 	</table>
 </form>'
 end

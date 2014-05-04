@@ -38,7 +38,8 @@ END
     end
     menu.menu 'Html Templates' do |sub_menu|
         sub_menu.command 'Tpl Begin End'
-        sub_menu.command 'Tpl Form Submit'
+        sub_menu.command 'Tpl Form Post'
+        sub_menu.command 'Tpl Form Get'
         sub_menu.command 'Tpl Table'
         sub_menu.command 'jquery datepicker'
     end
