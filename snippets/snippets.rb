@@ -87,7 +87,7 @@ end
 
 snippet 'PHP Language' do |snip|
 	snip.trigger = 'nvlang'
-	snip.expansion = '<?php
+	snip.expansion = '<?php$
 
 /**
  * @Project NUKEVIET 4.x
@@ -154,7 +154,7 @@ snippet 'Fetch Limit' do |snip|
 \$db->select( \'*\' )
   ->order( \'id DESC\' )
   ->limit( \$per_page )
-  ->offset( \$page );
+  ->offset( (\$page - 1) * \$per_page );
 
 \$_query = \$db->query( \$db->sql() );
 while( \$row = \$_query->fetch() )
